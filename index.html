@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050805">
+
+<title>NEXORA AI</title>
+
+<style>
+:root {
+    --green: #00ff88;
+    --bg: #050805;
+    --panel: #101710;
+    --text: #eafff1;
+    --muted: #8b9c90;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, sans-serif;
+    min-height: 100vh;
+}
+
+header {
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #183522;
+    background: #080d09;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--green);
+    letter-spacing: 2px;
+}
+
+.status {
+    color: var(--green);
+    font-size: 12px;
+}
+
+main {
+    max-width: 750px;
+    margin: auto;
+    padding: 24px 15px;
+}
+
+.hero {
+    text-align: center;
+    padding: 35px 10px 25px;
+}
+
+.orb {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    background: radial-gradient(circle, #153d26, #071009);
+    border: 2px solid var(--green);
+    box-shadow: 0 0 30px #00ff8830;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--green);
+    font-size: 35px;
+}
+
+h1 {
+    margin: 0 0 12px;
+    font-size: 30px;
+}
+
+h1 span {
+    color: var(--green);
+}
+
+.subtitle {
+    color: var(--muted);
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+.chat {
+    background: var(--panel);
+    border: 1px solid #1b3021;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.chat-title {
+    padding: 15px;
+    border-bottom: 1px solid #1b3021;
+    font-weight: bold;
+}
+
+.messages {
+    height: 340px;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.message {
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    line-height: 1.5;
+    font-size: 14px;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.bot {
+    background: #17251a;
+    border: 1px solid #24452d;
+    margin-right: 25px;
+}
+
+.user {
+    background: #063a22;
+    border: 1px solid #08743f;
+    margin-left: 25px;
+}
+
+.composer {
+    display: flex;
+    gap: 8px;
+    padding: 12px;
+    border-top: 1px solid #1b3021;
+}
+
+input {
+    flex: 1;
+    min-width: 0;
+    padding: 14px;
+    border-radius: 10px;
+    border: 1px solid #294532;
+    background: #080d09;
+    color: white;
+    outline: none;
+    font-size: 14px;
+}
+
+input:focus {
+    border-color: var(--green);
+}
+
+button {
+    border: none;
+    border-radius: 10px;
+    padding: 12px 15px;
+    background: var(--green);
+    color: #001509;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(.96);
+}
+
+.mic {
+    background: #203326;
+    color: var(--green);
+    border: 1px solid #31563c;
+    font-size: 18px;
+}
+
+.options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 18px 0;
+}
+
+.options button {
+    background: #101710;
+    color: var(--green);
+    border: 1px solid #24452d;
+    font-size: 12px;
+}
+
+footer {
+    text-align: center;
+    color: #718176;
+    font-size: 12px;
+    padding: 25px 10px;
+}
+
+@media (max-width: 420px) {
+    h1 {
+        font-size: 25px;
+    }
+
+    .messages {
+        height: 320px;
+    }
+
+    .composer {
+        gap: 6px;
+        padding: 8px;
+    }
+
+    .composer button {
+        padding: 11px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">NEXORA AI</div>
+    <div class="status">● SYSTEM ONLINE</div>
+</header>
+
+<main>
+
+    <section class="hero">
+        <div class="orb">N</div>
+
+        <h1>Meet <span>NEXORA</span></h1>
+
+        <p class="subtitle">
+            Your personal digital assistant.<br>
+            Built with ambition. Designed for the future.
+        </p>
+    </section>
+
+    <section class="chat">
+
+        <div class="chat-title">
+            💚 NEXORA CONSOLE
+        </div>
+
+        <div class="messages" id="messages">
+            <div class="message bot">
+                Hello! I'm NEXORA AI, your personal assistant.
+
+                I'm an early prototype. Send me a message to get started!
+            </div>
+        </div>
+
+        <form class="composer" id="chatForm">
+            <input
+                id="userInput"
+                type="text"
+                placeholder="Ask NEXORA something..."
+                autocomplete="off"
+                required
+            >
+
+            <button class="mic" id="micButton"
+                type="button" title="Voice input">🎙️</button>
+
+            <button type="submit">➤</button>
+        </form>
+
+    </section>
+
+    <div class="options">
+        <button type="button" id="voiceToggle">
+            🔊 Voice: ON
+        </button>
+
+        <button type="button" id="clearButton">
+            Clear Chat
+        </button>
+    </div>
+
+</main>
+
+<footer>
+    NEXORA AI · VERSION 0.2 · BUILT WITH 💚
+</footer>
+
+<script>
+const messages = document.getElementById("messages");
+const input = document.getElementById("userInput");
+const form = document.getElementById("chatForm");
+const micButton = document.getElementById("micButton");
+const voiceToggle = document.getElementById("voiceToggle");
+
+let voiceEnabled = true;
+
+function addMessage(text, type) {
+    const message = document.createElement("div");
+
+    message.className = "message " + type;
+    message.textContent = text;
+
+    messages.appendChild(message);
+    messages.scrollTop = messages.scrollHeight;
+}
+
+function speak(text) {
+    if (!voiceEnabled || !("speechSynthesis" in window)) {
+        return;
+    }
+
+    window.speechSynthesis.cancel();
+
+    const speech = new SpeechSynthesisUtterance(text);
+    speech.lang = "en-US";
+    speech.rate = 1;
+
+    window.speechSynthesis.speak(speech);
+}
+
+function getResponse(message) {
+    const text = message.toLowerCase().trim();
+
+    if (/^(hi|hello|hey)\b/.test(text)) {
+        return "Hello! 💚 I'm NEXORA, your personal assistant.";
+    }
+
+    if (text.includes("your name") || text.includes("who are you")) {
+        return "I'm NEXORA AI, your personal digital assistant.";
+    }
+
+    if (text.includes("who made you") || text.includes("your creator")) {
+        return "I'm being built by my creator, one step at a time!";
+    }
+
+    if (text.includes("time")) {
+        return "The current time on your device is " +
+            new Date().toLocaleTimeString();
+    }
+
+    if (text.includes("date") || text.includes("today")) {
+        return "Today's date is " +
+            new Date().toLocaleDateString(undefined, {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+    }
+
+    if (text.includes("joke")) {
+        return "Why do programmers love dark mode? Because light attracts bugs! 😂";
+    }
+
+    if (text.includes("help")) {
+        return "You can ask my prototype about its name, creator, the time, today's date, or request a joke. A real AI connection is our next major upgrade.";
+    }
+
+    return "I received your message: \"" + message +
+        "\"\n\nI'm still an early prototype, so I can't answer every question intelligently yet. My real AI brain is coming in a future upgrade! 💚";
+}
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const message = input.value.trim();
+
+    if (!message) return;
+
+    addMessage(message, "user");
+    input.value = "";
+
+    const response = getResponse(message);
+
+    addMessage(response, "bot");
+    speak(response);
+});
+
+voiceToggle.addEventListener("click", function() {
+    voiceEnabled = !voiceEnabled;
+
+    voiceToggle.textContent = voiceEnabled
+        ? "🔊 Voice: ON"
+        : "🔇 Voice: OFF";
+
+    if (!voiceEnabled && "speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+    }
+});
+
+document.getElementById("clearButton").addEventListener("click", function() {
+    messages.replaceChildren();
+
+    addMessage("Chat cleared! Hello again. 💚", "bot");
+});
+
+const SpeechRecognition =
+    window.SpeechRecognition ||
+    window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+    const recognition = new SpeechRecognition();
+
+    recognition.lang = "en-US";
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    micButton.addEventListener("click", function() {
+        try {
+            recognition.start();
+            micButton.textContent = "⏳";
+        } catch (error) {
+            addMessage(
+                "Voice input is already starting. Please try again shortly.",
+                "bot"
+            );
+        }
+    });
+
+    recognition.onresult = function(event) {
+        input.value = event.results[0][0].transcript;
+        micButton.textContent = "🎙️";
+        input.focus();
+    };
+
+    recognition.onerror = function() {
+        micButton.textContent = "🎙️";
+
+        addMessage(
+            "Voice input wasn't available. Check your microphone permission and try again.",
+            "bot"
+        );
+    };
+
+    recognition.onend = function() {
+        micButton.textContent = "🎙️";
+    };
+
+} else {
+    micButton.addEventListener("click", function() {
+        addMessage(
+            "Your browser doesn't support speech recognition here. Try a supported browser or type your message.",
+            "bot"
+        );
+    });
+}
+</script>
+
+</body>
+</html>
